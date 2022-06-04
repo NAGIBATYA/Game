@@ -41,25 +41,30 @@ public class Window extends JFrame implements ActionListener,KeyListener{
         getContentPane().add(panel);
         this.pack();
         this.setSize(xssize, yssize);
-        //this.setAlwaysOnTop(true);
         this.setLocation(0, 0);
     }
 
     public void run() {
         setVisible(true);
     }
-
-    public void paint(Graphics g1) {
-        Graphics2D g = (Graphics2D)g1;
-        super.paintComponents(g);
+    public void update(Graphics g) {
+        Image dbuffer = createImage(xssize,yssize);
+        Graphics db = dbuffer.getGraphics();
         bounds = new Rectangle(WIDTH,HEIGHT);
         bounds.setLocation(x,y);
-        g.drawImage(image1,0,0,null);
-        g.drawImage(person, bounds.x, bounds.y, WIDTH, HEIGHT, this);
+        db.drawImage(image1,0,0,null);
+        db.drawImage(person, bounds.x, bounds.y, WIDTH, HEIGHT, this);
+        g.drawImage(dbuffer,0,0,xssize,yssize,null);
+    }
+
+
+    public void paint(Graphics g) {
+        update(g);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
     }
 
     @Override
@@ -70,21 +75,17 @@ public class Window extends JFrame implements ActionListener,KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_D){ //RIGHT
-            bounds.setLocation(bounds.x+25, bounds.y);
-            x += 25;
-            //System.out.println(x);
+            bounds.setLocation(bounds.x+1, bounds.y);
+            x += 1;
         }if (e.getKeyCode()==KeyEvent.VK_A){ //LEFT
-            bounds.setLocation(bounds.x-25, bounds.y);
-            x -= 25;
-            //System.out.println(x);
+            bounds.setLocation(bounds.x-1, bounds.y);
+            x -= 1;
         }if (e.getKeyCode()==KeyEvent.VK_S){ //DOWN
-            bounds.setLocation(bounds.x, bounds.y+25);
-            y += 25;
-            //System.out.println(y);
+            bounds.setLocation(bounds.x, bounds.y+1);
+            y += 1;
         }if (e.getKeyCode()==KeyEvent.VK_W){ //UP
-            bounds.setLocation(bounds.x, bounds.y-25);
-            y -= 25;
-            //System.out.println(y);
+            bounds.setLocation(bounds.x, bounds.y-1);
+            y -= 1;
         }
     }
     @Override
