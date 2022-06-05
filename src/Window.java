@@ -30,7 +30,7 @@ public class Window extends JFrame implements ActionListener,KeyListener{
     private int ymulty = yssize * 4;
     private int xisize = image.getWidth(); //400 W
     private int yisize = image.getHeight();//400 H
-    private int speed = 1;
+    private int speed = 10;
     private Graphics g;
 
     public Window() throws IOException {
