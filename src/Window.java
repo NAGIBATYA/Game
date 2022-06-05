@@ -30,8 +30,7 @@ public class Window extends JFrame implements ActionListener,KeyListener{
     private int ymulty = yssize * 4;
     private int xisize = image.getWidth(); //400 W
     private int yisize = image.getHeight();//400 H
-    private int speedx = 10;
-    private int speedy = 10;
+    private int speed = 1;
     private Graphics g;
 
     public Window() throws IOException {
@@ -200,71 +199,92 @@ public class Window extends JFrame implements ActionListener,KeyListener{
 
         if (e.getKeyCode()==KeyEvent.VK_D){ //RIGHT
             if (xm > -3200) {
-                map.setLocation(map.x-speedx, map.y);
-                xm -= speedx;
-                System.out.println(xm + " " + ym);
-            } else if (xm == -3200) {
+                if (x < 775){                                           // в центр
+                    bounds.setLocation(bounds.x+speed,bounds.y);
+                    x += speed;
+                }else if (x == 775){
+                    map.setLocation(map.x-speed, map.y);
+                    xm -= speed;
+                    System.out.println(xm + " " + ym);
+                }
+            } else if (xm == -3200) {                                       //  край
                 if (x < 1555){
-                    bounds.setLocation(bounds.x+speedx,bounds.y);
-                    x += speedx;
+                    bounds.setLocation(bounds.x+speed,bounds.y);
+                    x += speed;
                 }else if (x == 1555){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
-                    xm -= 0;
-                    x += 0;
+                    ym -= 0;
+                    y += 0;
                 }
-
             }
-            System.out.println(x + " " + y);
         }
 
-
         if (e.getKeyCode()==KeyEvent.VK_A){ //LEFT
-            if (xm < 0) {
-                map.setLocation(map.x+speedx, map.y);
-                xm += speedx;
-                System.out.println(xm + " " + ym);
-            } else if (xm == 0) {
+               if (xm < 0) {
+                if (x > 775){                                           // в центр
+                    bounds.setLocation(bounds.x-speed,bounds.y);
+                    x -= speed;
+                }else if (x == 775){
+                    map.setLocation(map.x+speed, map.y);
+                    xm += speed;
+                    System.out.println(xm + " " + ym);
+                }
+            } else if (xm == 0) {                                       //  край
                 if (x > 0){
-                    bounds.setLocation(bounds.x-speedx,bounds.y);
-                    x -= speedx;
+                    bounds.setLocation(bounds.x-speed,bounds.y);
+                    x -= speed;
                 }else if (x == 0){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
-                    xm -= 0;
-                    x += 0;
+                    ym -= 0;
+                    y += 0;
                 }
             }
-        }if (e.getKeyCode()==KeyEvent.VK_S){ //DOWN 2700
+        }
+
+        if (e.getKeyCode()==KeyEvent.VK_S){ //DOWN 2700
             if (ym > -2700) {
-                map.setLocation(map.x, map.y-speedy);
-                ym -= speedy;
-                System.out.println(xm + " " + ym);
+                if (y < 425){
+                    bounds.setLocation(bounds.x,bounds.y+speed);
+                    y += speed;
+                }else if (y == 425){
+                    map.setLocation(map.x, map.y-speed);
+                    ym -= speed;
+                    System.out.println(xm + " " + ym);
+                }
             } else if (ym == -2700) {
                 if (y < 855){
-                    bounds.setLocation(bounds.x,bounds.y+speedx);
-                    y += speedx;
-                }else if (x == 855){
+                    bounds.setLocation(bounds.x,bounds.y+speed);
+                    y += speed;
+                }else if (y == 855){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
-                    xm -= 0;
-                    x += 0;
+                    ym -= 0;
+                    y += 0;
                 }
             }
-        }if (e.getKeyCode()==KeyEvent.VK_W){ //UP 0
-            if (ym > 0) {
-                map.setLocation(map.x, map.y-speedy);
-                ym -= speedy;
-                System.out.println(xm + " " + ym);
+        }
+
+        if (e.getKeyCode()==KeyEvent.VK_W){ //UP 0
+            if (ym < 0) {
+                if (y > 425){
+                    bounds.setLocation(bounds.x,bounds.y-speed);
+                    y -= speed;
+                }else if (y == 425){
+                    map.setLocation(map.x, map.y+speed);
+                    ym += speed;
+                    System.out.println(xm + " " + ym);
+                }
             } else if (ym == 0) {
                 if (y > 0){
-                    bounds.setLocation(bounds.x,bounds.y-speedx);
-                    y -= speedx;
+                    bounds.setLocation(bounds.x,bounds.y-speed);
+                    y -= speed;
                 }else if (y == 0){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
-                    xm -= 0;
-                    x += 0;
+                    ym -= 0;
+                    y += 0;
                 }
             }
         }
