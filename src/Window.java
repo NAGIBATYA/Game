@@ -197,41 +197,75 @@ public class Window extends JFrame implements ActionListener,KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
+
         if (e.getKeyCode()==KeyEvent.VK_D){ //RIGHT
             if (xm > -3200) {
                 map.setLocation(map.x-speedx, map.y);
                 xm -= speedx;
                 System.out.println(xm + " " + ym);
             } else if (xm == -3200) {
-                map.setLocation(map.x,map.y);
-                xm -= 0;
+                if (x < 1555){
+                    bounds.setLocation(bounds.x+speedx,bounds.y);
+                    x += speedx;
+                }else if (x == 1555){
+                    map.setLocation(map.x, map.y);
+                    bounds.setLocation(bounds.x, bounds.y);
+                    xm -= 0;
+                    x += 0;
+                }
+
             }
-        }if (e.getKeyCode()==KeyEvent.VK_A){ //LEFT
+            System.out.println(x + " " + y);
+        }
+
+
+        if (e.getKeyCode()==KeyEvent.VK_A){ //LEFT
             if (xm < 0) {
                 map.setLocation(map.x+speedx, map.y);
                 xm += speedx;
                 System.out.println(xm + " " + ym);
             } else if (xm == 0) {
-                map.setLocation(map.x,map.y);
-                xm += 0;
+                if (x > 0){
+                    bounds.setLocation(bounds.x-speedx,bounds.y);
+                    x -= speedx;
+                }else if (x == 0){
+                    map.setLocation(map.x, map.y);
+                    bounds.setLocation(bounds.x, bounds.y);
+                    xm -= 0;
+                    x += 0;
+                }
             }
-        }if (e.getKeyCode()==KeyEvent.VK_S){ //DOWN
+        }if (e.getKeyCode()==KeyEvent.VK_S){ //DOWN 2700
             if (ym > -2700) {
                 map.setLocation(map.x, map.y-speedy);
                 ym -= speedy;
                 System.out.println(xm + " " + ym);
             } else if (ym == -2700) {
-                map.setLocation(map.x,map.y);
-                xm += 0;
+                if (y < 855){
+                    bounds.setLocation(bounds.x,bounds.y+speedx);
+                    y += speedx;
+                }else if (x == 855){
+                    map.setLocation(map.x, map.y);
+                    bounds.setLocation(bounds.x, bounds.y);
+                    xm -= 0;
+                    x += 0;
+                }
             }
-        }if (e.getKeyCode()==KeyEvent.VK_W){ //UP
-            if (ym < 0) {
-                bounds.setLocation(map.x, map.y+speedy);
-                ym += speedy;
+        }if (e.getKeyCode()==KeyEvent.VK_W){ //UP 0
+            if (ym > 0) {
+                map.setLocation(map.x, map.y-speedy);
+                ym -= speedy;
                 System.out.println(xm + " " + ym);
             } else if (ym == 0) {
-                map.setLocation(map.x,map.y);
-                xm += 0;
+                if (y > 0){
+                    bounds.setLocation(bounds.x,bounds.y-speedx);
+                    y -= speedx;
+                }else if (y == 0){
+                    map.setLocation(map.x, map.y);
+                    bounds.setLocation(bounds.x, bounds.y);
+                    xm -= 0;
+                    x += 0;
+                }
             }
         }
     }
