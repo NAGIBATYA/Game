@@ -212,19 +212,19 @@ public class Window extends JFrame implements ActionListener,KeyListener{
 
         if (e.getKeyCode()==KeyEvent.VK_D){ //RIGHT
             if (xm > -3200) {
-                if (x < (xssize - (WIDTH / 2) / 2)){                                           // в центр
+                if (x < (xssize - WIDTH) / 2){                                           // в центр
                     bounds.setLocation(bounds.x+speed,bounds.y);
                     x += speed;
-                }else if (x == (xssize - (WIDTH / 2) / 2)){
+                }else if (x == (xssize - WIDTH) / 2){
                     map.setLocation(map.x-speed, map.y);
                     xm -= speed;
                     System.out.println(xm + " " + ym);
                 }
             } else if (xm == -3200) {                                       //  край
-                if (x < xssize - (WIDTH / 2)){
+                if (x < xssize - WIDTH){
                     bounds.setLocation(bounds.x+speed,bounds.y);
                     x += speed;
-                }else if (x == xssize - (WIDTH / 2)){
+                }else if (x == xssize - WIDTH){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
                     ym -= 0;
@@ -235,19 +235,19 @@ public class Window extends JFrame implements ActionListener,KeyListener{
 
         if (e.getKeyCode()==KeyEvent.VK_A){ //LEFT
                if (xm < 0) {
-                if (x > (xssize - (WIDTH / 2)) / 2){                                           // в центр
+                if (x > (xssize - WIDTH) / 2){                                           // в центр
                     bounds.setLocation(bounds.x-speed,bounds.y);
                     x -= speed;
-                }else if (x == (xssize - (WIDTH / 2) / 2)){
+                }else if (x == (xssize - WIDTH) / 2){
                     map.setLocation(map.x+speed, map.y);
                     xm += speed;
                     System.out.println(xm + " " + ym);
                 }
             } else if (xm == 0) {                                       //  край
-                if (x > xssize - (xssize - (WIDTH / 2) / 2)){
+                if (x > 0){
                     bounds.setLocation(bounds.x-speed,bounds.y);
                     x -= speed;
-                }else if (x == xssize - (xssize - (WIDTH / 2))){
+                }else if (x == 0){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
                     ym -= 0;
@@ -258,7 +258,7 @@ public class Window extends JFrame implements ActionListener,KeyListener{
 
         if (e.getKeyCode()==KeyEvent.VK_S){ //DOWN 2700
             if (ym > -2700) {
-                if (y < (yssize - (HEIGHT / 2)) / 2){
+                if (y < (yssize - HEIGHT) / 2){
                     bounds.setLocation(bounds.x,bounds.y+speed);
                     y += speed;
                 }else if (y == (yssize - (HEIGHT / 2)) / 2){
