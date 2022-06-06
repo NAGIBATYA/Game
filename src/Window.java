@@ -11,29 +11,42 @@ import java.io.IOException;
 
 public class Window extends JFrame implements ActionListener,KeyListener{
 
-    BufferedImage image = ImageIO.read(new File("src/img_3.png"));
-    BufferedImage person = ImageIO.read(new File("src/img_1.png"));
     private Toolkit tk = Toolkit.getDefaultToolkit();
+    BufferedImage image = ImageIO.read(new File("src/phon.png"));
+    //BufferedImage person = ImageIO.read(new File("src/person.png"));
+    private int xssize = (int) tk.getScreenSize().getWidth();            //1600 W
+    private int yssize = (int) tk.getScreenSize().getHeight();           //900  H
     private JPanel panel;
-    Timer t = new Timer(5000,this);
+    Timer t = new Timer(10,this);
     private Rectangle bounds;
     private Rectangle map;
     private int xm = 0;
     private int ym = 0;
     private final int WIDTH = 50;
-    private final int HEIGHT = 50;
-    private int x = 775;
-    private int y = 425;
-    private int xssize = (int) tk.getScreenSize().getWidth();            //1600 W
-    private int yssize = (int) tk.getScreenSize().getHeight();           //900  H
-    private int xmulty = xssize * 3;
-    private int ymulty = yssize * 4;
+    private final int HEIGHT = 64;
+    private int x = (xssize - WIDTH) / 2;
+    private int y = (yssize - HEIGHT) / 2;
+    private int xmsize = xssize * 3;
+    private int ymsize = yssize * 4;
     private int xisize = image.getWidth(); //400 W
     private int yisize = image.getHeight();//400 H
-    private int speed = 10;
+    private int speed = xssize / 160;
     private Graphics g;
 
-    public Window() throws IOException {
+    BufferedImage forward = ImageIO.read(new File("src/forward.png"));
+    BufferedImage forwardrunleft = ImageIO.read(new File("src/forward_run_left.png"));
+    BufferedImage forwardrunright = ImageIO.read(new File("src/forward_run_right.png"));
+    BufferedImage behind = ImageIO.read(new File("src/behind.png"));
+    BufferedImage behindrunleft = ImageIO.read(new File("src/behind_run_left.png"));
+    BufferedImage behindrunright = ImageIO.read(new File("src/behind_run_right.png"));
+    BufferedImage left = ImageIO.read(new File("src/left.png"));
+    BufferedImage leftrunleft = ImageIO.read(new File("src/left_run_left.png"));
+    BufferedImage leftrunright = ImageIO.read(new File("src/left_run_left.png"));
+    BufferedImage right = ImageIO.read(new File("src/right.png"));
+    BufferedImage rightrunleft = ImageIO.read(new File("src/right_run_left.png"));
+    BufferedImage rightrunright = ImageIO.read(new File("src/right_run_right.png"));
+
+    public Window() throws IOException {                                                        //!!!!!!!!!!!!!!!!new person is W 351 and H 451
         super();
         addKeyListener(this);
         this.setTitle("Nate Higgers");
@@ -54,7 +67,7 @@ public class Window extends JFrame implements ActionListener,KeyListener{
         Image dbuffer = createImage(xssize,yssize);
         Graphics db = dbuffer.getGraphics();
         bounds = new Rectangle(WIDTH,HEIGHT);
-        map = new Rectangle(xmulty,ymulty);
+        map = new Rectangle(xmsize,ymsize);
         bounds.setLocation(x,y);
         map.setLocation(xm,ym);
 
@@ -175,7 +188,7 @@ public class Window extends JFrame implements ActionListener,KeyListener{
         db.drawImage(image, map.x + (xisize * 10),map.y + (yisize * 8), xisize, yisize, null);
         db.drawImage(image, map.x + (xisize * 11),map.y + (yisize * 8), xisize, yisize, null);
 
-        db.drawImage(person, bounds.x, bounds.y, WIDTH, HEIGHT, null);
+        db.drawImage(forward, bounds.x, bounds.y, WIDTH, HEIGHT, null);
         g.drawImage(dbuffer,0,0,xssize,yssize,null);
     }
 
@@ -199,19 +212,19 @@ public class Window extends JFrame implements ActionListener,KeyListener{
 
         if (e.getKeyCode()==KeyEvent.VK_D){ //RIGHT
             if (xm > -3200) {
-                if (x < 775){                                           // в центр
+                if (x < (xssize - (WIDTH / 2) / 2)){                                           // в центр
                     bounds.setLocation(bounds.x+speed,bounds.y);
                     x += speed;
-                }else if (x == 775){
+                }else if (x == (xssize - (WIDTH / 2) / 2)){
                     map.setLocation(map.x-speed, map.y);
                     xm -= speed;
                     System.out.println(xm + " " + ym);
                 }
             } else if (xm == -3200) {                                       //  край
-                if (x < 1555){
+                if (x < xssize - (WIDTH / 2)){
                     bounds.setLocation(bounds.x+speed,bounds.y);
                     x += speed;
-                }else if (x == 1555){
+                }else if (x == xssize - (WIDTH / 2)){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
                     ym -= 0;
@@ -222,19 +235,19 @@ public class Window extends JFrame implements ActionListener,KeyListener{
 
         if (e.getKeyCode()==KeyEvent.VK_A){ //LEFT
                if (xm < 0) {
-                if (x > 775){                                           // в центр
+                if (x > (xssize - (WIDTH / 2)) / 2){                                           // в центр
                     bounds.setLocation(bounds.x-speed,bounds.y);
                     x -= speed;
-                }else if (x == 775){
+                }else if (x == (xssize - (WIDTH / 2) / 2)){
                     map.setLocation(map.x+speed, map.y);
                     xm += speed;
                     System.out.println(xm + " " + ym);
                 }
             } else if (xm == 0) {                                       //  край
-                if (x > 0){
+                if (x > xssize - (xssize - (WIDTH / 2) / 2)){
                     bounds.setLocation(bounds.x-speed,bounds.y);
                     x -= speed;
-                }else if (x == 0){
+                }else if (x == xssize - (xssize - (WIDTH / 2))){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
                     ym -= 0;
@@ -245,19 +258,19 @@ public class Window extends JFrame implements ActionListener,KeyListener{
 
         if (e.getKeyCode()==KeyEvent.VK_S){ //DOWN 2700
             if (ym > -2700) {
-                if (y < 425){
+                if (y < (yssize - (HEIGHT / 2)) / 2){
                     bounds.setLocation(bounds.x,bounds.y+speed);
                     y += speed;
-                }else if (y == 425){
+                }else if (y == (yssize - (HEIGHT / 2)) / 2){
                     map.setLocation(map.x, map.y-speed);
                     ym -= speed;
                     System.out.println(xm + " " + ym);
                 }
             } else if (ym == -2700) {
-                if (y < 855){
+                if (y < yssize - (yssize - (HEIGHT / 2))){
                     bounds.setLocation(bounds.x,bounds.y+speed);
                     y += speed;
-                }else if (y == 855){
+                }else if (y == yssize - (yssize - (HEIGHT / 2))){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
                     ym -= 0;
@@ -268,19 +281,19 @@ public class Window extends JFrame implements ActionListener,KeyListener{
 
         if (e.getKeyCode()==KeyEvent.VK_W){ //UP 0
             if (ym < 0) {
-                if (y > 425){
+                if (y > (yssize - (HEIGHT / 2)) / 2){
                     bounds.setLocation(bounds.x,bounds.y-speed);
                     y -= speed;
-                }else if (y == 425){
+                }else if (y == (yssize - (HEIGHT / 2)) / 2){
                     map.setLocation(map.x, map.y+speed);
                     ym += speed;
                     System.out.println(xm + " " + ym);
                 }
             } else if (ym == 0) {
-                if (y > 0){
+                if (y > yssize - (yssize - (HEIGHT / 2))){
                     bounds.setLocation(bounds.x,bounds.y-speed);
                     y -= speed;
-                }else if (y == 0){
+                }else if (y == yssize - (yssize - (HEIGHT / 2))){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
                     ym -= 0;
