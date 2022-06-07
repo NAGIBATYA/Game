@@ -22,8 +22,8 @@ public class Window extends JFrame implements ActionListener,KeyListener{
     private Rectangle map;
     private int xm = 0;
     private int ym = 0;
-    private final int WIDTH = 50;
-    private final int HEIGHT = 64;
+    private final int WIDTH = xssize / 32;
+    private final int HEIGHT = yssize / 14;
     private int x = (xssize - WIDTH) / 2;
     private int y = (yssize - HEIGHT) / 2;
     private int xmsize = xssize * 3;
@@ -261,16 +261,16 @@ public class Window extends JFrame implements ActionListener,KeyListener{
                 if (y < (yssize - HEIGHT) / 2){
                     bounds.setLocation(bounds.x,bounds.y+speed);
                     y += speed;
-                }else if (y == (yssize - (HEIGHT / 2)) / 2){
+                }else if (y == (yssize - HEIGHT) / 2){
                     map.setLocation(map.x, map.y-speed);
                     ym -= speed;
                     System.out.println(xm + " " + ym);
                 }
             } else if (ym == -2700) {
-                if (y < yssize - (yssize - (HEIGHT / 2))){
+                if (y < yssize - HEIGHT){
                     bounds.setLocation(bounds.x,bounds.y+speed);
                     y += speed;
-                }else if (y == yssize - (yssize - (HEIGHT / 2))){
+                }else if (y == yssize - HEIGHT){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
                     ym -= 0;
@@ -281,19 +281,19 @@ public class Window extends JFrame implements ActionListener,KeyListener{
 
         if (e.getKeyCode()==KeyEvent.VK_W){ //UP 0
             if (ym < 0) {
-                if (y > (yssize - (HEIGHT / 2)) / 2){
+                if (y > (yssize - HEIGHT) / 2){
                     bounds.setLocation(bounds.x,bounds.y-speed);
                     y -= speed;
-                }else if (y == (yssize - (HEIGHT / 2)) / 2){
+                }else if (y == (yssize - HEIGHT) / 2){
                     map.setLocation(map.x, map.y+speed);
                     ym += speed;
                     System.out.println(xm + " " + ym);
                 }
             } else if (ym == 0) {
-                if (y > yssize - (yssize - (HEIGHT / 2))){
+                if (y > 0){
                     bounds.setLocation(bounds.x,bounds.y-speed);
                     y -= speed;
-                }else if (y == yssize - (yssize - (HEIGHT / 2))){
+                }else if (y == 0){
                     map.setLocation(map.x, map.y);
                     bounds.setLocation(bounds.x, bounds.y);
                     ym -= 0;
